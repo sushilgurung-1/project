@@ -6,10 +6,10 @@ def add_students_marks():
     This add_students_marks function bascially to take students details and marks.
     Marks of are store in subjects variable where marks are store in dictionary format 
     """
-    name = input('Enter your name: ')
-    clas = input('Enter your class: ')
-    facaulty = input('Enter your facaulty(Management, Science, Law, Humanities, Hotel Management): ')   
-    roll_no = input('Enter your roll_no: ') 
+    name = input('Enter your name: ').strip()
+    clas = input('Enter your class: ').strip()
+    facaulty = input('Enter your facaulty(Management, Science, Law, Humanities, Hotel Management): ').strip()
+    roll_no = input('Enter your roll_no: ').strip()
     
     print()
     print("Enter marks of subjects (out of 100): ")

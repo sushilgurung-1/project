@@ -4,8 +4,14 @@ import datetime
 
 def get_user_expense():
     print(f"---------🎯Getting user Expenses-----------")
-    expense_name = input("Enter expense name: ")
-    expense_amount = float(input("Enter expense amount: ")) # here we can apply exception
+
+    while True:
+        try:
+            expense_name = input("Enter expense name: ")
+            expense_amount = float(input("Enter expense amount: ")) # here we can apply exception
+            break
+        except ValueError:
+            print("Invalid amount. Please enter a number.")
 
     expense_category = ["Food", "Home", "Work", "Fun", "Music"]
 
@@ -15,16 +21,20 @@ def get_user_expense():
             print(i+1,".",category_name)
         
         value_range = f"[1-{len(expense_category)}]"
-        selected_index = int(input(f"Enter a category number {value_range}: ")) - 1 # Need exception handling(str)
-
-        if selected_index in range(len(expense_category)):
-            selected_category = expense_category[selected_index]
-            new_expense = Expense(
-                name=expense_name,category=selected_category,amount=expense_amount
-                )
-            return new_expense
-        else:
-            print("Invalid category. Please try again!")
+        while True:
+            try:
+                selected_index = int(input(f"Enter a category number {value_range}: ")) - 1 # Need exception handling(str)
+                if selected_index in range(len(expense_category)):
+                    selected_category = expense_category[selected_index]
+                    new_expense = Expense(
+                        name=expense_name,category=selected_category,amount=expense_amount
+                        )
+                    return new_expense
+                else:
+                    print("Invalid category. Please try again!")
+                break
+            except ValueError:
+                print(f"Provide a number from {value_range}. Please try again!")
        
 def save_expense_to_file(expense: Expense,expense_file_path):
     print(f"-------🎯succesfull to save user Expenses {expense} to {expense_file_path}--------")
@@ -36,6 +46,10 @@ def summarize_expense(expense_file_path,budget):
     print(f"----------🎯Summarizing user Expenses-----------")
     expenses = []
     total_exp = 0
+
+    # while True:
+    # while True:
+        # try:
     with open(expense_file_path, 'r') as f:
         lines = f.readlines() #list , read line by line
         for line in lines:
@@ -57,7 +71,7 @@ def summarize_expense(expense_file_path,budget):
                 amt_by_category[key] = expense.amount
         print("Expenses by category:")
         
-   
+
         for keys, values in amt_by_category.items():
             print(f"{keys}: {values:.2f}")
             total_exp += values
@@ -77,7 +91,10 @@ def summarize_expense(expense_file_path,budget):
 
     daily_budget = remaining_budget/remaining_days
     print(red(f"You can {daily_budget} per days for remaining the {remaining_days} days"))
-
+    # break
+        # except FileNotFoundError:
+            # print("File not found. Please check the file path and try again.")
+            
 def red(text):
     return f"\033[91m{text}\033[0m"
 

@@ -41,8 +41,8 @@ def delete_person(people):
                 print('Invalid number!')
             else:
                 break
-        except:
-            print('Invalid number!')
+        except Exception as e:
+            print(e)
         
     people.pop(number)
     print('delete successfull!\n')
